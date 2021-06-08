@@ -1,4 +1,5 @@
 
-
-db/tasks/*
+# production
+db/tasks/*.json*/
+# dependencies
 node_modules/
