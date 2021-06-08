@@ -42,14 +42,14 @@ const stateTaskList = (arrTasks = [], isCompleted = false) => {
 const printTasks = ( arrTasks = [], typeList = 1 ) => {
     let index = 1;
     for (task in arrTasks) {
-        if(typeList = 1){
+        if(typeList == 1){
             const text = ` ${index.toString().green} ${arrTasks[task].description} :: ${ ( arrTasks[task].is_completed ) ? 'Completado'.green : 'Pendiente'.red} `;
             console.log(text);
         }
-        if(typeList = 2){
+        if(typeList == 2){
             ( arrTasks[task].is_completed ) && console.log(` ${index.toString().green} ${arrTasks[task].description} :: ${ 'Completado'.green } ` );
         }
-        if(typeList = 3){
+        if(typeList == 3){
             const text = ` ${index.toString().green} ${arrTasks[task].description} :: ${'Pendiente'.red} `;
             ( !arrTasks[task].is_completed ) && console.log(text);
                  

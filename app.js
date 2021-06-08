@@ -28,7 +28,8 @@ const main = async () => {
         break;
 
       case '2':
-        taskList(tasks.arrayList, 1);
+        // taskList(tasks.arrayList, 1);
+        showStateTaskList(tasks.arrayList, 1);
         break;
 
       case '3':
