@@ -1,15 +1,17 @@
 require('colors');
 
 
-const { inquirerMenu, pause, readInput, listTaskToComplete } = require('./helpers/inquirer');
-const { taskList, showStateTaskList } = require('./helpers/messages');
+const { inquirerMenu, pause, readInput, getTaskToComplete } = require('./helpers/inquirer');
+
+const { showStateTaskList } = require('./helpers/messages');
 const { saveData, readData } = require('./helpers/saveFile');
-const Task = require('./models/Task');
+
 const Tasks = require('./models/tasks');
 
 
 
 const main = async () => {
+  console.clear();
 
   let opt = '';
   const tasks = new Tasks();
@@ -22,32 +24,37 @@ const main = async () => {
     opt = await inquirerMenu();
 
     switch (opt) {
-      case '1':
+      case '1': //// Create task
         const desc = await readInput('Descripción: ');
         tasks.createTask(desc);
         break;
 
       case '2':
-        // taskList(tasks.arrayList, 1);
+        // show List tasks
         showStateTaskList(tasks.arrayList, 1);
         break;
 
-      case '3':
-        showStateTaskList(tasks.arrayList, 3);
-
-        // const taskObjList = tasks.taskObjList;
-        // const value = await listTaskToComplete(taskObjList);
-        // console.log('valor ',value);
-        // completeTask(task);
+      case '3'://show list completed tasks
+        showStateTaskList(tasks.arrayList, 2);
         break;
-      case '4':
-        showStateTaskList(tasks.arrayList, 4);
+        
+      case '4': //show list pending tasks
+        showStateTaskList(tasks.arrayList, 3);
+        break;
+
+      case '5': //complete a task
+
+        const idTask = await getTaskToComplete( tasks.choiceTaskList() );
+        // const idTask = listTaskToComplete(tasks.arrayObjList());
+        // tasks.completeTask('id task ' ,idTask); // ? console.log( 'terminado' ) : console.log( 'error al completar tarea' );
+        tasks.completeTask( idTask ) ;
         break;
       default:
         break;
     }
 
     saveData(tasks.arrayList);
+    await pause();
 
     if (opt !== '0') await pause();
 

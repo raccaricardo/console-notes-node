@@ -3,49 +3,65 @@ const Task = require("./task");
 
 class Tasks {
 
-    _listado = {};
+    _list = {};
 
     get arrayList() {
         let taskList = [];
-        Object.keys(this._listado).forEach( key => {
-            const task = this._listado[key];
+        Object.keys(this._list).forEach( key => {
+            const task = this._list[key];
             taskList.push(task);
         });
         return taskList;
     }
 
     /**
-     * To obtain array for tasks list to complete in @function completeTask() in inquirer
-     */
-    get arrayObjList() {
+     * @function choiceTaskList() To obtain array for tasks list to complete in  in inquirer.prompt
+    *  
+    */
+    choiceTaskList() {
         let taskObjList = [];
-        Object.keys(this._listado).forEach( key => {
-            const task = this._listado[key];
-            taskObjList.push({
-                value: task.id,
-                name: task.name,
+            let i = 1;
+            
+            Object.keys(this._list).forEach( ( key) => {
+                const task = this._list[key];
+                
+                if ( !task.is_completed ) {
+                    taskObjList.push({
+                        value: task.id,
+                        name: `${ i.toString().green } ${ task.description } `
+                    });
+                    i++;
+                }
+                 return taskObjList;
             });
-        });
+        
+        
         return taskObjList;
     }
 
     data( data = [] ) {
-        this._listado = data;
+        this._list = data;
         
     }
 
     constructor() {
-        this._listado = {};
+        this._list = {};
     }
 
     createTask( desc = '' ) {
         const task = new Task( desc );
-        this._listado[task.id] = task;
+        this._list[task.id] = task;
 
     }
-    completeTask( task ) {
-        this._listado[task.id].is_completed = true;
+    completeTask( taskId ) {
+        this._list = this._list.map( task => {
+            if ( task.id == taskId){
+                task.is_completed = true;
+            }
+            return task;
+        } )
+        console.log('this', this._list);
+         // this._list = newList;
     }
 }
-
 module.exports = Tasks;

@@ -1,4 +1,6 @@
 const inquirer = require('inquirer');
+const Task = require('../models/task');
+const Tasks = require('../models/tasks');
 require('colors');//no lo asignamos a una contante porque no necesatimos traer ningun metodo
 
 /**
@@ -40,13 +42,13 @@ const menuQuestions = [
         ]
     }
 ];
-const taskToComplete = (taskObjList) => {
+const taskToComplete = (choices) => {
     return [
         {
             type: 'list',
-            name: 'task',
+            name: 'idTask',
             message: 'Select a task to complete',
-            choices : taskObjList
+            choices 
         }
     ]
 }
@@ -112,20 +114,19 @@ const readInput = async ( message ) => {
     return desc;
 }
 
-const listTaskToComplete = async (taskObjList) => {
+const getTaskToComplete = async (taskObjList) => {
 
-    console.clear();
-
-
-    const { option } = await inquirer.prompt(taskToComplete(taskObjList));
-
-    return option;
-
+  
+    const { idTask } = await inquirer.prompt(taskToComplete(taskObjList));
+    
+    
+    
+    return idTask;
 }
 
 module.exports = {
     inquirerMenu,
     pause,
     readInput,
-    listTaskToComplete,
+    getTaskToComplete
 }

@@ -11,6 +11,7 @@ class Task{
 
         this.id = uuidv4();
         this.description = description; 
+        this.is_completed = false;
         //this.createdAt = new Date();
         // this.completedOn = completedOn;
 
