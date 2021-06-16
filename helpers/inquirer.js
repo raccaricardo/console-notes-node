@@ -35,6 +35,14 @@ const menuQuestions = [
                 name: ` ${`5.`.green} Completar tarea(s) `
             },
             {
+                value: '6',
+                name: ` ${`6.`.green} Eliminar tarea `
+            },
+            {
+                value: '7',
+                name: ` ${`7.`.green} Eliminar todas las tarea `
+            },
+            {
                 value: '0',
                 name: ` ${`0.`.green} Salir `
             },
@@ -42,12 +50,24 @@ const menuQuestions = [
         ]
     }
 ];
-const taskToComplete = (choices) => {
+//choicesList for inquirer.prompt(). In this case, tasks to complete
+const choicesTasksToComplete = (choices) => {
     return [
         {
             type: 'list',
             name: 'idTask',
             message: 'Select a task to complete',
+            choices 
+        }
+    ]
+}
+//choicesList for inquirer.prompt(). In this case, tasks to delete
+const choicesTasksToDelete = (choices) => {
+    return [
+        {
+            type: 'list',
+            name: 'idTask',
+            message: 'Select a task to delete',
             choices 
         }
     ]
@@ -116,11 +136,12 @@ const readInput = async ( message ) => {
 
 const getTaskToComplete = async (taskObjList) => {
 
-  
-    const { idTask } = await inquirer.prompt(taskToComplete(taskObjList));
-    
-    
-    
+    const { idTask } = await inquirer.prompt( choicesTasksToComplete(taskObjList));
+    return idTask;
+}
+const getTaskToDelete = async (taskObjList) => {
+
+    const { idTask } = await inquirer.prompt( choicesTasksToDelete(taskObjList));
     return idTask;
 }
 
@@ -128,5 +149,6 @@ module.exports = {
     inquirerMenu,
     pause,
     readInput,
-    getTaskToComplete
+    getTaskToComplete,
+    getTaskToDelete
 }
