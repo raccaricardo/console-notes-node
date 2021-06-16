@@ -1,29 +1,26 @@
 //messages to print in console
 require('colors');
 
+//to showCompleteTaskList
+const showAllTaskList = (arrTasks) => {
+    console.clear();
+    genericHeaderTaskList();
+    printAllTasks( arrTasks );
 
-//main function
-const showStateTaskList = (arrTasks, section) => {
+}
+//show list of show list of completed or incomplete tasks
+const showStateTaskList = ( arrTasks = [], showTasksCompleted = true ) => {
 
     console.clear();
-    switch (section) {
-        case 1: //show all tasks
-            genericHeaderTaskList();
-            printTasks(arrTasks, 1);
-            break;
-        case 2: //show completed tasks
-            headerTaskList(true);
-            printTasks(arrTasks, 2);
-
-            break;
-        case 3: //show incompleted tasks
-            headerTaskList(false);
-            printTasks(arrTasks, 3);
-            break;
-
-        default:
-            break;
-    }
+    //show completed tasks
+    // ( showTasksCompleted ) ? printTasks( arrTasks, showTasksCompleted ) : printTasks( arrTasks, showTasksCompleted );
+    headerTaskList( showTasksCompleted ); 
+    let index = 1;
+    
+    const tasks = arrTasks.filter( task => task.is_completed == showTasksCompleted);
+    console.log("arreglo tareas: ");
+     printTasks( tasks, showTasksCompleted )
+  
 }
 
 const genericHeaderTaskList = () => {
@@ -32,40 +29,50 @@ const genericHeaderTaskList = () => {
     console.log(`==================================================\n`.green);
 }
 
-const headerTaskList = ( isCompleted = false ) => {
+const headerTaskList = ( headerOfCompleted = true ) => {
     console.log(`==================================================`.green);
-    console.log(`            Listado de tareas ${(isCompleted) ? 'completas' : 'pendientes'}           `.bgCyan);
+    console.log(`            Listado de tareas ${( headerOfCompleted ) ? 'completas' : 'pendientes'}           `.bgCyan);
     console.log(`==================================================\n`.green);
 }
+const printAllTasks = (arrTasks = [], index = 1) => {
 
-const printTasks = (arrTasks = [], typeList = 1) => {
-    // typeList: 1. all tasks, 2. completed task, 3. pending tasks
-    let index = 1;
+    if( arrTasks == [] ){
+        const text = ` ${ '0. '.green } no se encuentran tareas registradas`;
+        console.log(text);        
+    }else{
+
     for (task in arrTasks) {
-        if (typeList == 1) {
-            const text = 
-            ` ${index.toString().green} ${arrTasks[task].description} :: ${(arrTasks[task].is_completed) 
-                                                                                        ? 'Completado'.green 
-                                                                                        : 'Pendiente'.red} `;
-            console.log(text);
-        }
-        if (typeList == 2) {
-            const txt = ` ${index.toString().green} ${arrTasks[task].description} :: ${'Completado'.green} `;
-            (arrTasks[task].is_completed) && console.log(txt);
-        }
-        if (typeList == 3) {
-
-            const text = ` ${index.toString().green} ${arrTasks[task].description} :: ${'Pendiente'.red} `;
-            (!arrTasks[task].is_completed) && console.log(text);
-
-        }
-        index++;
-
+        
+        const text = 
+        ` ${index.toString().green} ${arrTasks[task].description} :: ${(arrTasks[task].is_completed) 
+                                                                                    ? 'Completado'.green 
+                                                                                    : 'Pendiente'.red} `;
+        console.log(text);
+        index ++;
+    }
     }
 }
+const printTasks = ( arrTasks = [], showCompleted = true, index = 1 )=>{
+    if ( showCompleted ) {
+        for (task in arrTasks) {
+            const txt = ` ${index.toString().green} ${ arrTasks[task].description } :: ${ 'Completado'.green } `;
+            console.log(txt);
+            index ++;
+        }
+    }else{
+        for (task in arrTasks) {
+            const txt = ` ${ index.toString().green } ${ arrTasks[task].description } :: ${ 'Pendiente'.red } `;
+            console.log(txt);
+            index ++;
+        }
+    }
+}
+
+ 
 
 module.exports = {
 
     showStateTaskList,
+    showAllTaskList,
 
 }

@@ -1,6 +1,5 @@
 const Task = require("./task");
 
-
 class Tasks {
 
     _list = {};
@@ -60,8 +59,6 @@ class Tasks {
             }
             return task;
         } )
-        console.log('this', this._list);
-         // this._list = newList;
-    }
+     }
 }
 module.exports = Tasks;
