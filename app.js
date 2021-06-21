@@ -25,7 +25,7 @@ const main = async () => {
   }
   do {
     opt = await inquirerMenu();
-    const arrayList = tasks.arrayList;
+    let arrayList = tasks.arrayList;
     switch (opt) {
       case "1": // Create task
         {
@@ -41,7 +41,7 @@ const main = async () => {
         break;
 
       case "3": //show list completed tasks
-        showStateTaskList(arrayList, true);
+        showStateTaskList(arrayList);
         break;
 
       case "4": //show list pending tasks
@@ -59,8 +59,8 @@ const main = async () => {
       case "6": //delete a task
         {
           const choicesTasks = tasks.choicesTasksToDelete();
-          const idTask1 = await getTaskToDelete(choicesTasks);
-          tasks.deleteTask(idTask1);
+          const idTask = await getTaskToDelete(choicesTasks);
+          tasks.deleteTask(idTask);
         }
         break;
 
@@ -70,10 +70,12 @@ const main = async () => {
         break;
 
       case "8": // mark incomplete
-        const idTask2 = await getTaskToIncomplete(
+        {
+          const idTask = await getTaskToIncomplete(
           tasks.choicesTasksToIncomplete()
-        );
-        tasks.incompleteTask(idTask2);
+          );
+          tasks.incompleteTask(idTask );
+        }
         break;
 
       default:

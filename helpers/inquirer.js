@@ -1,6 +1,4 @@
 const inquirer = require("inquirer");
-const Task = require("../models/task");
-const Tasks = require("../models/tasks");
 require("colors"); //no lo asignamos a una contante porque no necesatimos traer ningun metodo
 
 /**

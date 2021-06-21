@@ -4,9 +4,10 @@ class Tasks {
   _list = {};
 
   get arrayList() {
+    
     let taskList = [] ;
     
-    Object.keys(this._list).forEach((key) => {
+    Object.keys(this._list).forEach( key => {
       const task = this._list[key];
       taskList.push(task);
     });
@@ -40,7 +41,7 @@ class Tasks {
     let taskObjList = [];
     let i = 1;
 
-    Object.keys(this._list).forEach((key) => {
+    Object.keys(this._list).forEach( key => {
       const task = this._list[key];
 
       taskObjList.push({
@@ -49,7 +50,6 @@ class Tasks {
       });
       i++;
 
-      return taskObjList;
     });
 
     return taskObjList;
