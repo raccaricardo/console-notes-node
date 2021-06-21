@@ -25,35 +25,43 @@ const main = async () => {
   }
   do {
     opt = await inquirerMenu();
-
+    const arrayList = tasks.arrayList;
     switch (opt) {
       case "1": // Create task
-        console.clear();
-        const desc = await readInput("Descripción: ");
-        tasks.createTask(desc);
+        {
+          console.clear();
+          const desc = await readInput("Descripción: ");
+          tasks.createTask(desc);
+        }
         break;
 
       case "2":
         // show List tasks
-        showAllTaskList(tasks.arrayList);
+        showAllTaskList(arrayList);
         break;
 
       case "3": //show list completed tasks
-        showStateTaskList(tasks.arrayList, true);
+        showStateTaskList(arrayList, true);
         break;
 
       case "4": //show list pending tasks
-        showStateTaskList(tasks.arrayList, false);
+        showStateTaskList(arrayList, false);
         break;
 
       case "5": //complete a task
-        const idTask = await getTaskToComplete(tasks.choicesTasksToComplete());
-        tasks.completeTask(idTask);
+        {
+          const choicesTasks = tasks.choicesTasksToComplete();
+          const idTask = await getTaskToComplete(choicesTasks);
+          tasks.completeTask(idTask);
+        }
         break;
 
       case "6": //delete a task
-        const idTask1 = await getTaskToDelete(tasks.choicesTasksToDelete());
-        tasks.deleteTask(idTask1);
+        {
+          const choicesTasks = tasks.choicesTasksToDelete();
+          const idTask1 = await getTaskToDelete(choicesTasks);
+          tasks.deleteTask(idTask1);
+        }
         break;
 
       case "7": //delete all tasks
@@ -62,8 +70,9 @@ const main = async () => {
         break;
 
       case "8": // mark incomplete
-
-        const idTask2 = await getTaskToIncomplete(tasks.choicesTasksToIncomplete());
+        const idTask2 = await getTaskToIncomplete(
+          tasks.choicesTasksToIncomplete()
+        );
         tasks.incompleteTask(idTask2);
         break;
 
