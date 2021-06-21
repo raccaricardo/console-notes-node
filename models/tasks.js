@@ -1,64 +1,60 @@
 const Task = require("./task");
 
 class Tasks {
+  _list = {};
 
-    _list = {};
+  get arrayList() {
+    let taskList = [];
+    Object.keys(this._list).forEach((key) => {
+      const task = this._list[key];
+      taskList.push(task);
+    });
+    return taskList;
+  }
 
-    get arrayList() {
-        let taskList = [];
-        Object.keys(this._list).forEach( key => {
-            const task = this._list[key];
-            taskList.push(task);
+  /**
+   * @function choiceTaskList() To obtain array for tasks list to complete in  in inquirer.prompt
+   *
+   */
+  choiceTaskList() {
+    let taskObjList = [];
+    let i = 1;
+
+    Object.keys(this._list).forEach((key) => {
+      const task = this._list[key];
+
+      if (!task.is_completed) {
+        taskObjList.push({
+          value: task.id,
+          name: `${i.toString().green} ${task.description} `,
         });
-        return taskList;
-    }
+        i++;
+      }
+      return taskObjList;
+    });gi
 
-    /**
-     * @function choiceTaskList() To obtain array for tasks list to complete in  in inquirer.prompt
-    *  
-    */
-    choiceTaskList() {
-        let taskObjList = [];
-            let i = 1;
-            
-            Object.keys(this._list).forEach( ( key) => {
-                const task = this._list[key];
-                
-                if ( !task.is_completed ) {
-                    taskObjList.push({
-                        value: task.id,
-                        name: `${ i.toString().green } ${ task.description } `
-                    });
-                    i++;
-                }
-                 return taskObjList;
-            });
-        
-        
-        return taskObjList;
-    }
+    return taskObjList;
+  }
 
-    data( data = [] ) {
-        this._list = data;
-        
-    }
+  data(data = []) {
+    this._list = data;
+  }
 
-    constructor() {
-        this._list = {};
-    }
+  constructor() {
+    this._list = {};
+  }
 
-    createTask( desc = '' ) {
-        const task = new Task( desc );
-        this._list[task.id] = task;
-
-    }
-    completeTask( taskId ) {
-        this._list = this._list.map( task => {
-            if ( task.id == taskId){
-                task.is_completed = true;
-            }
-            return task;
-        } )
-     }
+  createTask(desc = "") {
+    const task = new Task(desc);
+    this._list[task.id] = task;
+  }
+  completeTask(taskId) {
+    this._list = this._list.map((task) => {
+      if (task.id == taskId) {
+        task.is_completed = true;
+      }
+      return task;
+    });
+  }
 }
 module.exports = Tasks;
