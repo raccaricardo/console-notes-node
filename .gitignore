@@ -1,5 +1,6 @@
 #dev
 db/tasks/borrar.js
+.vscode
 # production
 db/tasks/*.json*/
 # dependencies
