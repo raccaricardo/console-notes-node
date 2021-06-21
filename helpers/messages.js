@@ -6,20 +6,17 @@ const showAllTaskList = (arrTasks) => {
     console.clear();
     genericHeaderTaskList();
     printAllTasks( arrTasks );
-
 }
+
 //show list of show list of completed or incomplete tasks
 const showStateTaskList = ( arrTasks = [], showTasksCompleted = true ) => {
 
     console.clear();
     //show completed tasks
-    // ( showTasksCompleted ) ? printTasks( arrTasks, showTasksCompleted ) : printTasks( arrTasks, showTasksCompleted );
     headerTaskList( showTasksCompleted ); 
     let index = 1;
-    
     const tasks = arrTasks.filter( task => task.is_completed == showTasksCompleted);
-    console.log("arreglo tareas: ");
-     printTasks( tasks, showTasksCompleted )
+    printTasks( tasks, showTasksCompleted );
   
 }
 

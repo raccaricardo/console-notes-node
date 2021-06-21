@@ -12,7 +12,7 @@ const menuQuestions = [
     {
         type: 'list',
         name: 'option',
-        message: 'what you want to do?',
+        message: '¿Qué desea hacer?',
         choices: [
             {
                 value: '1',
@@ -32,7 +32,19 @@ const menuQuestions = [
             },
             {
                 value: '5',
-                name: ` ${`5.`.green} Completar tarea(s) `
+                name: ` ${`5.`.green} Completar tarea `
+            },
+            {
+                value: '6',
+                name: ` ${`6.`.green} Eliminar tarea `
+            },
+            {
+                value: '7',
+                name: ` ${`7.`.green} Eliminar todas las tareas `
+            },
+            {
+                value: '8',
+                name: ` ${`8.`.green} Marcar una tarea como incompleta `
             },
             {
                 value: '0',
@@ -42,16 +54,40 @@ const menuQuestions = [
         ]
     }
 ];
-const taskToComplete = (choices) => {
+//choicesList for inquirer.prompt(). In this case, tasks to complete
+const choicesTasksToComplete = (choices) => {
     return [
         {
             type: 'list',
             name: 'idTask',
-            message: 'Select a task to complete',
+            message: 'Seleccione una tarea para completar',
             choices 
         }
     ]
 }
+//choicesList for inquirer.prompt(). In this case, tasks to delete
+const choicesTasksToDelete = (choices) => {
+    return [
+        {
+            type: 'list',
+            name: 'idTask',
+            message: 'Seleccione una tarea para eliminar',
+            choices 
+        }
+    ]
+}
+
+const choicesTasksToIncomplete = (choices) => {
+    return [
+        {
+            type: 'list',
+            name: 'idTask',
+            message: 'Seleccione una tarea para marcar como incompleta',
+            choices 
+        }
+    ]
+}
+
 /*
 *
 *         HEADER MENU
@@ -116,11 +152,17 @@ const readInput = async ( message ) => {
 
 const getTaskToComplete = async (taskObjList) => {
 
-  
-    const { idTask } = await inquirer.prompt(taskToComplete(taskObjList));
-    
-    
-    
+    const { idTask } = await inquirer.prompt( choicesTasksToComplete(taskObjList));
+    return idTask;
+}
+const getTaskToDelete = async (taskObjList) => {
+
+    const { idTask } = await inquirer.prompt( choicesTasksToDelete(taskObjList));
+    return idTask;
+}
+const getTaskToIncomplete = async (taskObjList) => {
+
+    const { idTask } = await inquirer.prompt( choicesTasksToIncomplete(taskObjList));
     return idTask;
 }
 
@@ -128,5 +170,7 @@ module.exports = {
     inquirerMenu,
     pause,
     readInput,
-    getTaskToComplete
+    getTaskToComplete,
+    getTaskToDelete,
+    getTaskToIncomplete
 }
