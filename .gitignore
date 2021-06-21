@@ -1,4 +1,5 @@
-
+#dev
+db/tasks/borrar.js
 # production
 db/tasks/*.json*/
 # dependencies
